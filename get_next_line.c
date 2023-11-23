@@ -43,6 +43,8 @@ char *get_next_line(int fd)
 	char	*str;
 
 	str = ft_line_right(fd, buff);
+	if (!str)
+		return (NULL);
 	return (str);
 }
 

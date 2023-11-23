@@ -67,3 +67,31 @@ char	*ft_strjoin(char *s1, char const *s2)
 	free(s1);
 	return (str);
 }
+
+char	*ft_get_line(char *str)
+{
+	char	*str_return;
+	int		i;
+
+	i = 0;
+	if (!str)
+		return (str);
+	while (str[i] && str[i] != '\n')
+		i++;
+	str_return = malloc((sizeof(char) * i) + 2);
+	if (!str_return)
+		return (NULL);
+	i = 0;
+	while (str[i] && str[i] != '\n')
+	{
+		str_return[i] = str[i];
+		i++;
+	}
+	if (str[i] == '\n')
+	{
+		str_return[i] = str[i];
+		i++;
+	}
+	str_return[i] = '\n';
+	return (str_return);
+}
