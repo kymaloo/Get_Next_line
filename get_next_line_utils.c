@@ -92,6 +92,25 @@ char	*ft_get_line(char *str)
 		str_return[i] = str[i];
 		i++;
 	}
-	str_return[i] = '\n';
+	str_return[i] = '\0';
+	return (str_return);
+}
+
+char	*ft_get_new_line(char	*str)
+{
+	char	*str_return;
+	int		i;
+	int	j;
+
+	i = 0;
+	while (str[i] && str[i] != '\n')
+		i++;
+	str_return = malloc(((ft_strlen(str) - i) + 1) * sizeof(char));
+	if (!str_return)
+		return (NULL);
+	j = 0;
+	while (str[i])
+		str_return[j++] = str[i++];
+	str_return[j] = '\0';
 	return (str_return);
 }
