@@ -80,7 +80,7 @@ char	*ft_get_line(char *str)
 		i++;
 	str_return = malloc((sizeof(char) * i) + 2);
 	if (!str_return)
-		return (free(str_return), NULL);
+		return (NULL);
 	i = 0;
 	while (str[i] && str[i] != '\n')
 	{
@@ -104,14 +104,14 @@ char	*ft_get_new_line(char	*str)
 
 	i = 0;
 	if (!str)
-		return (free(str), NULL);
+		return (NULL);
 	while (str[i] && str[i] != '\n')
 		i++;
 	if (str[i] == '\n')
 		i++;
 	str_return = malloc(((ft_strlen(str) - i) + 1) * sizeof(char));
 	if (!str_return)
-		return (free(str_return), NULL);
+		return (NULL);
 	j = 0;
 	while (str[i])
 		str_return[j++] = str[i++];
