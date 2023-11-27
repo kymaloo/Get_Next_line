@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 7
+#  define BUFFER_SIZE 1000
 # endif
 
 # include <stdlib.h>
@@ -26,5 +26,7 @@ char	*ft_line_right(int	fd, char *str);
 char	*get_next_line(int fd);
 char	*ft_get_line(char *str);
 char	*ft_get_new_line(char	*str);
+size_t	ft_strlcat(char *dst, const char *src, size_t size);
+size_t	ft_strlen(const char *s);
 
 #endif
