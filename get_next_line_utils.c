@@ -12,16 +12,6 @@
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
 char	*ft_strchr(const char *s, int c)
 {
 	char	cast_c;
@@ -116,6 +106,7 @@ char	*ft_get_new_line(char	*str)
 	while (str[i])
 		str_return[j++] = str[i++];
 	str_return[j] = '\0';
+	free(str);
 	return (str_return);
 }
 

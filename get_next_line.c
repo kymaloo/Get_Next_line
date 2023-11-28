@@ -12,7 +12,17 @@
 
 #include "get_next_line.h"
 
-char	*ft_line_right(int	fd, char *buff)
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
+
+char	*ft_line_right(int fd, char *buff)
 {
 	int		rd_bytes;
 	char	*str;
@@ -31,7 +41,7 @@ char	*ft_line_right(int	fd, char *buff)
 	while (!ft_strchr(str, '\n') && rd_bytes != 0)
 	{
 		rd_bytes = read(fd, buff, BUFFER_SIZE);
-		if (rd_bytes == -1)
+		if (rd_bytes == 0 || rd_bytes == -1)
 			return (NULL);
 		buff[rd_bytes] = '\0';
 		str = ft_strjoin(str, buff);
@@ -41,11 +51,11 @@ char	*ft_line_right(int	fd, char *buff)
 	return (str);
 }
 
-char *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
 	static char	buff[BUFFER_SIZE];
-	char	*str;
-	char	*tmp;
+	char		*str;
+	char		*tmp;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
@@ -54,34 +64,40 @@ char *get_next_line(int fd)
 		return (NULL);
 	str = ft_get_line(tmp);
 	if (!str)
+	{
+		free(tmp);
 		return (NULL);
+	}
 	tmp = ft_get_new_line(tmp);
 	if (!tmp)
+	{
+		free(str);
 		return (NULL);
+	}
 	buff[0] = '\0';
 	ft_strlcat(buff, tmp, ft_strlen(tmp) + 1);
 	free(tmp);
 	return (str);
 }
 
-#include <fcntl.h>
-#include <stdio.h>
-int	main(void)
-{
-	int		fd;
-	char	*line;
-	int		i;
+// #include <fcntl.h>
+// #include <stdio.h>
+// int	main(void)
+// {
+// 	int		fd;
+// 	char	*line;
+// 	int		i;
 
-	i = 0;
-	fd = open("bible.txt", O_RDONLY);
-	if (fd == -1)
-		return (1);
-	while (i < 7)
-	{
-		line = get_next_line(fd);
-		printf("%s", line);
-		free(line);
-		i++;
-	}
-	close(fd);
-}
+// 	i = 0;
+// 	fd = open("bible.txt", O_RDONLY);
+// 	if (fd == -1)
+// 		return (1);
+// 	while (i < 7)
+// 	{
+// 		line = get_next_line(fd);
+// 		printf("%s", line);
+// 		free(line);
+// 		i++;
+// 	}
+// 	close(fd);
+// }
