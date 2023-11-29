@@ -42,7 +42,7 @@ char	*ft_strjoin(char *s1, char const *s2)
 		return (NULL);
 	str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!str)
-		return (free(str), NULL);
+		return (NULL);
 	while (s1[i])
 	{
 		str[i] = s1[i];
@@ -90,7 +90,7 @@ char	*ft_get_new_line(char	*str)
 {
 	char	*str_return;
 	int		i;
-	int	j;
+	int		j;
 
 	i = 0;
 	if (!str)

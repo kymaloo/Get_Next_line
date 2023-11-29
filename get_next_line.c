@@ -41,12 +41,12 @@ char	*ft_line_right(int fd, char *buff)
 	while (!ft_strchr(str, '\n') && rd_bytes != 0)
 	{
 		rd_bytes = read(fd, buff, BUFFER_SIZE);
-		if (rd_bytes == 0 || rd_bytes == -1)
-			return (NULL);
+		if (rd_bytes == -1)
+			return (buff[0] = '\0', free(str), NULL);
 		buff[rd_bytes] = '\0';
 		str = ft_strjoin(str, buff);
-		if (!str)
-			return (NULL);
+		if (!str || ft_strlen(str) == 0)
+			return (free(str), NULL);
 	}
 	return (str);
 }
@@ -79,25 +79,3 @@ char	*get_next_line(int fd)
 	free(tmp);
 	return (str);
 }
-
-// #include <fcntl.h>
-// #include <stdio.h>
-// int	main(void)
-// {
-// 	int		fd;
-// 	char	*line;
-// 	int		i;
-
-// 	i = 0;
-// 	fd = open("bible.txt", O_RDONLY);
-// 	if (fd == -1)
-// 		return (1);
-// 	while (i < 7)
-// 	{
-// 		line = get_next_line(fd);
-// 		printf("%s", line);
-// 		free(line);
-// 		i++;
-// 	}
-// 	close(fd);
-// }
