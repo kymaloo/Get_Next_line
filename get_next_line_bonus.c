@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *s)
 {
@@ -53,13 +53,13 @@ char	*ft_line_right(int fd, char *buff)
 
 char	*get_next_line(int fd)
 {
-	static char	buff[BUFFER_SIZE + 1];
+	static char	buff[1024][BUFFER_SIZE + 1];
 	char		*str;
 	char		*tmp;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	tmp = ft_line_right(fd, buff);
+	tmp = ft_line_right(fd, buff[fd]);
 	if (!tmp)
 		return (NULL);
 	str = ft_get_line(tmp);
@@ -74,8 +74,8 @@ char	*get_next_line(int fd)
 		free(str);
 		return (NULL);
 	}
-	buff[0] = '\0';
-	ft_strlcat(buff, tmp, ft_strlen(tmp) + 1);
+	buff[fd][0] = '\0';
+	ft_strlcat(buff[fd], tmp, ft_strlen(tmp) + 1);
 	free(tmp);
 	return (str);
 }
